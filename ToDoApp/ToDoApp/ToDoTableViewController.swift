@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoTableViewController: UITableViewController {
     
-    let itemArray = ["Go North", "Go South", "Go West"]
+    var itemArray = ["Go North", "Go South", "Go West"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,25 @@ class ToDoTableViewController: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // Add New Item
+    
+    @IBAction func addNewButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add new To-Do item", message: "", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { (alertTextfield) in
+            alertTextfield.placeholder = "Create New Item"
+            textField = alertTextfield
+        }
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
+        
     }
     
 }
